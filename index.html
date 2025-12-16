@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <tittle>Angelito - Ruleta de Colores</tittle>
+    <style>
+      body{
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #111;
+        color: #fff;
+        padding-top: 60px;
+      }
+      .ruleta {
+        font-size: 32px;
+        margin: 30px;
+        animation: girar 2s linear infinite;
+      }
+      @keyframes girar {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg);}
+      }
+      button {
+        padding: 15px 30px;
+        font-size: 18px;
+        cursor: pointer;
+      }
+      </style>
+  </head>
+  <body>
+
+    <h1> 🎄🎄🎄Angelito🎄🎄🎄</h1>
+    <p id="mensaje">Haz clic para girar la ruleta </p>
+
+    <div class="ruleta">🎡</div>
+
+    <button onclick="asignar()">GIRAR</button>
+
+    <script>
+      const asignaciones = {
+        belgica: "Rojo",
+        yenibel: "Azul",
+  yessica: "Verde",
+  yudy: "Amarillo",
+  amy: "Morado",
+  yajaira: "Rosado",
+  naira: "Dorado",
+  kaira: "Negro",
+  santa: "Blanco",
+  isaura: "Plateado"
+};
+
+const params = new URLSearchParams(window.location.search);
+const user = params.get("u");
+
+function asignar() {
+  if (!user || !asignaciones[user]) {
+    document.getElementById("mensaje").innerText =
+      "Link inválido";
+    return;
+  }
+
+  if (localStorage.getItem("usado_" + user)) {
+    document.getElementById("mensaje").innerText =
+      "Este color ya fue asignado";
+    return;
+  }
+
+  const color = asignaciones[user];
+  localStorage.setItem("usado_" + user, "true");
+
+  document.getElementById("mensaje").innerText =
+    user.charAt(0).toUpperCase() + user.slice(1) +
+    ", tu color es " + color;
+}
+</script>
+
+</body>
+</html>
+    
+
